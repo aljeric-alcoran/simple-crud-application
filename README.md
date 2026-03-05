@@ -25,7 +25,6 @@ A full-stack CRUD application built with **Node.js**, **Express**, and **Firebas
 | Framework | Express.js                        |
 | Database  | Firebase Firestore                |
 | Frontend  | HTML, CSS, Vanilla JavaScript     |
-| Storage   | Cloudinary (for media/uploads)    |
 | Dev Tool  | Nodemon                           |
 
 ---
@@ -116,7 +115,7 @@ Open `frontend/index.html` with [Live Server](https://marketplace.visualstudio.c
 
 > Make sure the `API_BASE` in `frontend/app.js` points to your backend URL:
 > ```js
-> const API_BASE = 'http://localhost:3000/api/records';
+> const API_BASE = 'http://localhost:3000/api/v1/records';
 > ```
 
 ---
@@ -173,7 +172,6 @@ Make sure these are ignored:
 ```
 node_modules/
 .env
-serviceAccountKey.json
 ```
 
 ---
