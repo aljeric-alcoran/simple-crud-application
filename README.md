@@ -64,7 +64,7 @@ A full-stack CRUD application built with **Node.js**, **Express**, and **Firebas
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/your-username/your-repo.git
+git clone https://github.com/aljeric-alcoran/simple-crud-application.git
 cd your-repo
 ```
 
