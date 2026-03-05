@@ -48,7 +48,7 @@ A full-stack CRUD application built with **Node.js**, **Express**, and **Firebas
 │   ├── styles.css               # Styles
 │   └── app.js                   # API calls, UI logic
 │
-├── .gitattributes
+├── .gitignore
 └── README.md
 ```
 
