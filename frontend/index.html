@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Records Manager</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+
+  <!-- Toast Notification -->
+  <div id="toast"></div>
+
+  <!-- Form Modal -->
+  <div class="modal-overlay" id="formModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 id="modalTitle">New Record <span class="tag" id="modalTag">CREATE</span></h2>
+        <button class="btn-close" onclick="closeModal()">&#x2715;</button>
+      </div>
+      <form id="recordForm" novalidate>
+        <input type="hidden" id="recordId"/>
+        <div class="form-row">
+          <div class="form-group">
+            <label>First Name <span class="required">*</span></label>
+            <input type="text" id="firstName" placeholder="John"/>
+            <div class="field-error" id="firstNameError">First name is required.</div>
+          </div>
+          <div class="form-group">
+            <label>Last Name <span class="required">*</span></label>
+            <input type="text" id="lastName" placeholder="Doe"/>
+            <div class="field-error" id="lastNameError">Last name is required.</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email Address <span class="required">*</span></label>
+          <input type="email" id="email" placeholder="john@example.com"/>
+          <div class="field-error" id="emailError">A valid email is required.</div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Role <span class="required">*</span></label>
+            <select id="role">
+              <option value="">Select role...</option>
+              <option value="Admin">Admin</option>
+              <option value="Editor">Editor</option>
+              <option value="Viewer">Viewer</option>
+              <option value="Manager">Manager</option>
+            </select>
+            <div class="field-error" id="roleError">Please select a role.</div>
+          </div>
+          <div class="form-group">
+            <label>Phone</label>
+            <input type="text" id="phone" placeholder="+1 234 567 8900"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Notes</label>
+          <textarea id="notes" placeholder="Optional notes..."></textarea>
+        </div>
+        <div class="form-actions">
+          <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="submitBtn">Save Record</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Confirm Delete Modal -->
+  <div class="modal-overlay" id="confirmModal">
+    <div class="modal confirm-modal">
+      <div class="icon-danger">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="3 6 5 6 21 6"/>
+          <path d="M19 6l-1 14H6L5 6M10 11v6M14 11v6M9 6V4h6v2"/>
+        </svg>
+      </div>
+      <h2>Delete Record?</h2>
+      <p>This action cannot be undone. The record will be permanently removed from Firestore.</p>
+      <div class="form-actions">
+        <button class="btn btn-secondary" onclick="closeConfirm()">Cancel</button>
+        <button class="btn btn-danger" id="confirmDeleteBtn">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Layout -->
+  <div class="layout">
+    <header>
+      <div class="header-left">
+        <h1>Records <span>Manager</span></h1>
+        <p>Firestore &middot; CRUD Interface &middot; v1.0</p>
+      </div>
+      <button class="btn-add" onclick="openCreateModal()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <line x1="12" y1="5" x2="12" y2="19"/>
+          <line x1="5" y1="12" x2="19" y2="12"/>
+        </svg>
+        New Record
+      </button>
+    </header>
+
+    <div class="stats-bar">
+      <div class="stat">
+        <div class="stat-value" id="statTotal">&#8212;</div>
+        <div class="stat-label">Total Records</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value" id="statAdmins">&#8212;</div>
+        <div class="stat-label">Admins</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value" id="statLatest">&#8212;</div>
+        <div class="stat-label">Latest Entry</div>
+      </div>
+    </div>
+
+    <div class="toolbar">
+      <div class="search-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+        <input type="text" id="searchInput" placeholder="Search by name, email, or role..."/>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Phone</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody">
+          <tr>
+            <td colspan="5">
+              <div class="state-box">
+                <div class="spinner"></div>
+                <p>Loading records...</p>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
